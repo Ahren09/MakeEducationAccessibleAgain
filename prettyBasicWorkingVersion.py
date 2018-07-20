@@ -112,9 +112,11 @@ def checkEnrollment(url):
 
 def sendMessage():
     '''
-    Function that texts u. There's more to it ofc but im v tired
+    Function that texts ppl. Im rly tired.
     '''
     global classToUserDict
+
+    
     
     result = []
     checks = []
@@ -141,7 +143,9 @@ def sendMessage():
 classToUserDict = {}
 
 connor = "+17073277984"
+rios = "+16194149537"
 addClass('https://sa.ucla.edu/ro/Public/SOC/Results/ClassDetail?term_cd=181&subj_area_cd=MATH%20%20%20&crs_catlg_no=0061%20%20%20%20&class_id=262268910&class_no=%20001%20%20',connor)
 addClass('https://sa.ucla.edu/ro/Public/SOC/Results/ClassDetail?term_cd=181&subj_area_cd=MATH%20%20%20&crs_catlg_no=0115A%20%20%20&class_id=262398910&class_no=%20001%20%20',connor)
-
+addClass('https://sa.ucla.edu/ro/Public/SOC/Results/ClassDetail?term_cd=181&subj_area_cd=MATH%20%20%20&crs_catlg_no=0061%20%20%20%20&class_id=262268910&class_no=%20001%20%20',rios)
+addClass('https://sa.ucla.edu/ro/Public/SOC/Results/ClassDetail?term_cd=181&subj_area_cd=MATH%20%20%20&crs_catlg_no=0115A%20%20%20&class_id=262398910&class_no=%20001%20%20',rios)
 sendMessage()
