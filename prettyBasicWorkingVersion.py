@@ -28,8 +28,7 @@ accountSID = 'ACe3c17e50096328c00dcab93158322f1d'
 authToken = '2ac8a397db0d1bde24c2f7f2ade3a325'
 client = Client(accountSID, authToken)
 
-#Global variable, will store class urls as keys, and user phone numbers as values
-classToUserDict = {}
+
 
 def addClass(url,userNum):
     '''
@@ -113,7 +112,11 @@ def checkEnrollment(url):
 
 def sendMessage():
     '''
-    Function that texts u. There is more to it but im extremely tired rn
+    Function that checks each given lecture URL and builds up a series of paragraphs
+    (or just a super big string really)
+    
+    Returns: A string that contains the statuses of all classes that have room. It disregards those
+    that do not, of course, because that would be a waste of a text.
     '''
     global classToUserDict
 
@@ -140,6 +143,11 @@ def sendMessage():
             for j in range(len(classToUserDict[checkToClassURL[checks[i]]])): #So it texts all the people registered for that course
                 message = client.messages.create(to=classToUserDict[checkToClassURL[checks[i]]][j],from_="+17072101477", body= result[i])
 
+#Global variable, will store class urls as keys, and user phone numbers as values
+classToUserDict = {}
+
 connor = "+17073277984"
 addClass('https://sa.ucla.edu/ro/Public/SOC/Results/ClassDetail?term_cd=181&subj_area_cd=MATH%20%20%20&crs_catlg_no=0061%20%20%20%20&class_id=262268910&class_no=%20001%20%20',connor)
+addClass('https://sa.ucla.edu/ro/Public/SOC/Results/ClassDetail?term_cd=181&subj_area_cd=MATH%20%20%20&crs_catlg_no=0115A%20%20%20&class_id=262398910&class_no=%20001%20%20',connor)
+
 sendMessage()
