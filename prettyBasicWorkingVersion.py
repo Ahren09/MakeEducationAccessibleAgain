@@ -113,11 +113,7 @@ def checkEnrollment(url):
 
 def sendMessage():
     '''
-    Function that checks each given lecture URL and builds up a series of paragraphs
-    (or just a super big string really)
-    
-    Returns: A string that contains the statuses of all classes that have room. It disregards those
-    that do not, of course, because that would be a waste of a text.
+    Function that texts u. There is more to it but im extremely tired rn
     '''
     global classToUserDict
 
