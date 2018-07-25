@@ -149,3 +149,7 @@ addClass('https://sa.ucla.edu/ro/Public/SOC/Results/ClassDetail?term_cd=181&subj
 addClass('https://sa.ucla.edu/ro/Public/SOC/Results/ClassDetail?term_cd=181&subj_area_cd=MATH%20%20%20&crs_catlg_no=0061%20%20%20%20&class_id=262268910&class_no=%20001%20%20',rios)
 addClass('https://sa.ucla.edu/ro/Public/SOC/Results/ClassDetail?term_cd=181&subj_area_cd=MATH%20%20%20&crs_catlg_no=0115A%20%20%20&class_id=262398910&class_no=%20001%20%20',rios)
 sendMessage()
+
+scheduler = BlockingScheduler()
+scheduler.add_job(sendMessage, 'interval', seconds = 5) #This will make it query the site every five seconds and in the case that there are openings will also text every five seconds
+scheduler.start()
