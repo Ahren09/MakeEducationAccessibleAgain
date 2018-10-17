@@ -1,3 +1,5 @@
+
+
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -5,7 +7,7 @@ from twilio.rest import Client
 from apscheduler.schedulers.blocking import BlockingScheduler
 import apscheduler
 
-__author__ = "Your Name"
+__author__ = "Connor Hennen"
 
 #These are our credentials on Twilio for classNotifierService@gmail.com 
 accountSID = 'ACe3c17e50096328c00dcab93158322f1d' 
@@ -26,14 +28,17 @@ def addClass(url,userNum):
     '''
     
     global classToUserDict
+    
     #If the dict is has no key for this course, then the only value for that 
     #key will be the value added by this function
     if url not in classToUserDict:
         classToUserDict[url] = [userNum]
+        
     #If the dict is has a key for this course, then the values will include all
     #phone numbers that have registered for this course
     else:
         classToUserDict[url].append(userNum)
+      
         
 def checkEnrollment(url):
     m61 = url
@@ -54,41 +59,25 @@ def checkEnrollment(url):
 
 def sendMessage():
     '''
-    Function that texts ppl. Im rly tired.
+    Function that texts ppl & deletes that number for that class afterwards
     '''
     global classToUserDict
     classToUserDict1 = classToUserDict.copy()
-    msgs = []
     
-    result = []
     checks = []
     checkToClassURL = {}
     for c in classToUserDict1:
         class1 = checkEnrollment(c)
-        checks.append(class1)
+        checks.append(checkEnrollment(c))
         checkToClassURL[class1] = c
+        
     for i in range(0,len(checks)):
-        print i
-        #print checks[i]
-        if checks[i]=='':
-            a = 1
-        else: 
-            '''
-            if len(result) > 0:
-                result.append(checks[i])
-            else:
-                result.append(checks[i])
-        if len(result[i])!=0:
-            '''
+
+        if checks[i]: 
             for j in range(len(classToUserDict1[checkToClassURL[checks[i]]])): #So it texts all the people registered for that course
-                
-                print classToUserDict1[checkToClassURL[checks[i]]][j]
                 message = client.messages.create(to=classToUserDict1[checkToClassURL[checks[i]]][j],from_="+17072101477", body= checks[i])
                 del classToUserDict1[checkToClassURL[checks[i]]][j]
-    #return msgs
 
-#Global variable, will store class urls as keys, and user phone numbers as values
-#classToUserDict = {}
 
 connor = "+17073277984"
 rios = "+16194149537"
@@ -96,8 +85,6 @@ addClass('https://sa.ucla.edu/ro/Public/SOC/Results/ClassDetail?term_cd=181&subj
 addClass('https://sa.ucla.edu/ro/Public/SOC/Results/ClassDetail?term_cd=181&subj_area_cd=MATH%20%20%20&crs_catlg_no=0115A%20%20%20&class_id=262398910&class_no=%20001%20%20',connor)
 addClass('https://sa.ucla.edu/ro/Public/SOC/Results/ClassDetail?term_cd=181&subj_area_cd=MATH%20%20%20&crs_catlg_no=0061%20%20%20%20&class_id=262268910&class_no=%20001%20%20',rios)
 addClass('https://sa.ucla.edu/ro/Public/SOC/Results/ClassDetail?term_cd=181&subj_area_cd=MATH%20%20%20&crs_catlg_no=0115A%20%20%20&class_id=262398910&class_no=%20001%20%20',rios)
-#sendMessage()
-
 
 scheduler = BlockingScheduler()
 scheduler.add_job(sendMessage, 'interval', seconds = 5) #This will make it query the site every five seconds and in the case that there are openings will also text every five seconds
